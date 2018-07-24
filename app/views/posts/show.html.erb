@@ -2,17 +2,20 @@
 
 <p>
   <strong>Title:</strong>
-  <%= @post.title %>
+  <%= @post.title.html_safe %>
 </p>
 
 <p>
   <strong>Author:</strong>
-  <%= @post.user.email %>
+  <%= link_to @post.user.username, user_posts_path(name: @post.user.username) %>
 </p>
 
+<div>
+	<%=image_tag @post.user.avatar.url, class: "show-pic" %> 
+</div>
 <p>
   <strong>Blog entry:</strong>
-  <%= @post.blog_entry %>
+  <%= @post.blog_entry.html_safe %>
 </p>
 
 <%if @post.user_id ==  current_user.id%>
@@ -31,10 +34,11 @@
 
 	<h4>What others have said:</h4>
 	<% @post.comments.each do |comment| %>
-		<p>
-			<%= comment.user.email %> said ... <br/>
+		<div class="well">
+			<%=image_tag comment.user.avatar.url(:thumb)%> 
+			<%= link_to comment.user.username, user_posts_path(name: comment.user.username) %> said ... <br/>
 			<%= comment.comment_entry %>
-		</p>
+		</div>
 	<% end %>
 </div>
 

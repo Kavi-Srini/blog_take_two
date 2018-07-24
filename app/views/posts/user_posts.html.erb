@@ -1,14 +1,10 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Posts</h1>
-
-
-    <% @posts.each do |post| %>
+<center> <h1>Words of <%= @user.username %></h1></center>
+<% @user.posts.each do |post| %>
       <div class="panel panel-success">
         <div class="panel-heading" >
           <h3 class="panel-title"><%= post.title.html_safe %></h3>
           <%=image_tag post.user.avatar.url(:thumb)%> 
-          <%= link_to post.user.username, user_posts_path(name: post.user.username) %> <%= post.created_at.strftime('%B %e, %Y at %l:%M %P')%>
+          <%= post.user.username %>
         </div>
         <div class="panel-body">
           <%= post.blog_entry %>
@@ -25,8 +21,7 @@
    <%end %>     
 
 <br>
+
 <div class="pull-right">
   <%= paginate @posts %>
 </div>
-
-<%= link_to 'New Post', new_post_path, class: "btn btn-primary" %>
